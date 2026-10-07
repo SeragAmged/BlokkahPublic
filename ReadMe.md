@@ -1,113 +1,136 @@
-# This page is Under construction 🚧
-
 # Blokkah 🏢
 
 <img src="Screenshots/logo.png" alt="Blokkah Logo" width="200" height="200"/>
 
-A modern property marketplace mobile application built with Flutter, offering a seamless experience for property buyers, sellers, and agents. Features an AI-powered chatbot, real-time notifications, and multilingual support.
+**A production-grade, two-sided real-estate marketplace built with Flutter.** One codebase serves buyers, sellers and agents, with an AI chatbot, real-time notifications, in-app payments, deep linking and full English/Arabic (RTL) support.
+
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat&logo=dart&logoColor=white)
+![BLoC](https://img.shields.io/badge/State-BLoC%20%2F%20Cubit-6C5CE7?style=flat)
+![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=flat&logo=firebase&logoColor=black)
+![Google Maps](https://img.shields.io/badge/Google%20Maps-4285F4?style=flat&logo=googlemaps&logoColor=white)
+![Material 3](https://img.shields.io/badge/Material%203-757575?style=flat&logo=materialdesign&logoColor=white)
+
+## 🧭 At a Glance
+
+| | |
+|---|---|
+| **Platforms** | iOS & Android (single Flutter codebase) |
+| **Users** | Buyers, Sellers / Agents, Companies (multi-member teams) |
+| **Architecture** | Feature-first, BLoC / Cubit, layered (UI → business logic → data) |
+| **Languages** | English & Arabic with RTL layouts |
+| **Integrations** | Firebase, Google Maps, Paymob, Branch.io, REST API |
 
 ## ✨ Key Features
 
-- 🏠 Property Listings with Advanced Filters
-- 🏢 Agent Profiles
-- 🔍 Search Functionality
-- 🗂️ Saved Properties & Favorites
-- 📊 User Profiles & Ratings
-- 📈 Market Trends & Insights
-- 🏦 Payment Integration (paymob)
-- 🤖 AI-Powered Chatbot Assistant
-- 🔐 Secure Authentication (Email, Google, Twitter)
-- 🌙 Dynamic Theme (Light/Dark Mode)
-- 🌐 Multilingual Support (English & Arabic)
-- 📍 Interactive Maps & Location Services
-- 🔔 Real-time Push Notifications
-- 📱 Intuitive Onboarding Experience
-- 💼 Property Management Dashboard
-- 📊 Analytics & Performance Tracking
+**Buyers**
+- 🏠 Property listings with advanced filters, search history and saved favorites
+- 🏢 Agent profiles with properties, reels, blogs and reviews
+- 🤖 AI chatbot assistant, FAQ and property-request flow
+- 🧮 Mortgage and property-insurance calculators
+- 📈 Market trends and insights, Blokkah Points rewards and invite-a-friend
 
-## 🎯 Technical Highlights
+**Sellers / Agents**
+- 💼 Property management dashboard with views and performance analytics
+- ➕ Multi-step listing creation, featured ads and blog posts
+- 💳 Tiered subscription plans (quarterly, semi-annual, annual) paid via Paymob
+- 👥 Company accounts with team-member management and multi-profile switching
 
-- **State Management**: Advanced BLoC pattern implementation with proper state handling
-- **Custom Widgets**: Reusable widget library following Material Design 3 guidelines
-- **API Integration**: RESTful API integration with error handling and retry mechanisms
+**Platform**
+- 🔐 Authentication via email, phone OTP, Google and Twitter, plus guest mode
+- 🌙 Light / dark theme, 🌐 English & Arabic localization
+- 🔔 Real-time push notifications, 📍 interactive maps and location services
+- 🔗 Deep linking for shareable properties and invites
 
-## 🏗️ Architecture & Design Patterns
+## 🧠 Engineering Highlights
 
-### BLoC-First Architecture
-We chose a Feature-First architecture with BLoC pattern because:
+- **Predictable state with BLoC / Cubit**: a global `BlocObserver` for tracing, feature-scoped blocs and shared cubits for app-wide concerns (theme, locale, session).
+- **Feature-first modular architecture**: authentication, home, property, CRM and more are self-contained modules that can be built and tested independently.
+- **Resilient networking**: REST integration through Dio with centralized error handling and retry mechanisms.
+- **Internationalization done properly**: generated localization (Flutter Intl) with RTL support, not string patching.
+- **Role-based experience**: one app, three personas (buyer, seller, company), each with its own navigation, onboarding and permissions.
+- **Monetization & growth**: Paymob payments for subscriptions and featured ads, Branch.io deep links, Firebase Analytics for funnel tracking.
+- **Design-system discipline**: reusable widget library and central theming following Material Design 3.
 
-#### 1. Project Structure
+## 🏗️ Architecture
+
 ```
 lib/
-├── bloc_observer.dart      # Global BLoC state observer
-├── firebase_options.dart   # Firebase configuration
-├── main.dart              # Application entry point
-├── generated/            # Generated localization files
-├── l10n/                # Localization resources
-├── layout/              # Core layout components
-│   ├── app/            # Main app layout with bottom navigation
-│   └── fab/            # Floating action button & dialogs
-├── models/             # Data models and DTOs
-├── modules/           # Feature modules
-│   ├── authentication/  # Auth related features
-│   ├── home/           # Home screen features
-│   ├── property/       # Property listing features
-│   ├── crm/           # CRM & Analytics features
-│   └── more/          # Additional features
-└── shared/           # Shared components
-    ├── cubit/        # Global state management
-    ├── router/       # Navigation & routing
-    ├── theme/        # App theming & styling
-    ├── utils/        # Common utilities
-    └── widgets/      # Reusable widgets
+├── bloc_observer.dart       # Global BLoC state observer
+├── firebase_options.dart    # Firebase configuration
+├── main.dart                # Application entry point
+├── generated/               # Generated localization files
+├── l10n/                    # Localization resources (EN / AR)
+├── layout/                  # Core layout
+│   ├── app/                 # Main app shell with bottom navigation
+│   └── fab/                 # Floating action button & dialogs
+├── models/                  # Data models and DTOs
+├── modules/                 # Feature modules
+│   ├── authentication/      # Sign-up, OTP, social login
+│   ├── home/                # Home & discovery
+│   ├── property/            # Listings, details, creation
+│   ├── crm/                 # CRM & analytics
+│   └── more/                # Profile, settings, tools
+└── shared/                  # Cross-cutting code
+    ├── cubit/               # Global state management
+    ├── router/              # Navigation & routing
+    ├── theme/               # Theming & styling
+    ├── utils/               # Common utilities
+    └── widgets/             # Reusable widgets
 ```
 
-#### 2. Architecture Benefits
-
-- **Feature Separation**: Each feature (property, authentication, CRM) is self-contained
-- **State Management**: BLoC pattern for predictable state handling
-- **Modular Design**: Features can be developed and tested independently
-- **Code Organization**: Clear separation between UI, business logic, and data
-- **Scalability**: Easy to add new features without affecting existing ones
+**Why feature-first + BLoC?** Each feature owns its UI, logic and data, so the app scales without cross-feature breakage, state changes are traceable, and business logic stays testable apart from widgets.
 
 ## 📱 Screenshots
 
-| User Flow | Agent Flow |
-|-----------|------------|
-| ![](Screenshots/user_flow/Spalsh.pdf) | ![](Screenshots/agent_flow/Splash.png) |
-| ![](Screenshots/user_flow/Onboarding%20-%20Select%20Language.jpg) | ![](Screenshots/agent_flow/On%20Boarding.png) |
-| ![](Screenshots/user_flow/Onboarding.png) | ![](Screenshots/agent_flow/Create%20Account.png) |
-| ![](Screenshots/user_flow/Create%20Account.jpg) | ![](Screenshots/agent_flow/Log%20In.png) |
-| ![](Screenshots/user_flow/OTP%20verification.jpg) | ![](Screenshots/agent_flow/Dashboard.png) |
-| ![](Screenshots/user_flow/Fill%20profile.jpg) | ![](Screenshots/agent_flow/Property%20Listings.png) |
-| ![](Screenshots/user_flow/Home.png) | ![](Screenshots/agent_flow/Add%20Listings.png) |
-| ![](Screenshots/user_flow/Explore.png) | ![](Screenshots/agent_flow/Stepper%20Flow.png) |
-| ![](Screenshots/user_flow/Search.png) | ![](Screenshots/agent_flow/Profile.png) |
-| ![](Screenshots/user_flow/Property.png) | ![](Screenshots/agent_flow/More.png) |
-| ![](Screenshots/user_flow/Chat%20Bot.png) | ![](Screenshots/agent_flow/Annual.jpg) |
-| ![](Screenshots/user_flow/More.png) | ![](Screenshots/agent_flow/Semi-Annual.jpg) |
-| ![](Screenshots/user_flow/App%20Information.png) | ![](Screenshots/agent_flow/Quarterly.jpg) |
+### 👤 Buyer
 
-## 🛠️ Technologies Used
+<table>
+  <tr>
+    <td align="center" width="16%"><img src="user_screen_shots/Home%20-%20After%20Login.jpg" width="100%"/><br/><sub><b>Home</b></sub></td>
+    <td align="center" width="16%"><img src="user_screen_shots/Search%20-%20Multiple%20Time.png" width="100%"/><br/><sub><b>Search</b></sub></td>
+    <td align="center" width="16%"><img src="user_screen_shots/Filter.png" width="100%"/><br/><sub><b>Filters</b></sub></td>
+    <td align="center" width="16%"><img src="user_screen_shots/Property.png" width="100%"/><br/><sub><b>Property Details</b></sub></td>
+    <td align="center" width="16%"><img src="user_screen_shots/Chat%20Bot%20-%20AI%20Chat.png" width="100%"/><br/><sub><b>AI Chatbot</b></sub></td>
+    <td align="center" width="16%"><img src="user_screen_shots/Mortgage%20Calculator.png" width="100%"/><br/><sub><b>Mortgage Calculator</b></sub></td>
+  </tr>
+</table>
 
-- **Framework**: Flutter 3.x
-- **State Management**: Flutter Bloc
-- **Backend Services**: Firebase (Auth, Analytics, Messaging)
-- **Maps**: Google Maps Flutter
-- **Networking**: Dio
-- **Local Storage**: SharedPreferences
-- **Localization**: Flutter Intl
-- **Authentication**: Firebase Auth, Google Sign-In, Twitter Login
-- **Notifications**: Firebase Cloud Messaging, Flutter Local Notifications
-- **Analytics**: Firebase Analytics
-- **Branch.io**: Deep Linking
-- **Payment Integration**: Paymob
+### 🏢 Seller / Agent
 
+<table>
+  <tr>
+    <td align="center" width="16%"><img src="seller/Dashboard.jpg" width="100%"/><br/><sub><b>Dashboard</b></sub></td>
+    <td align="center" width="16%"><img src="seller/Properties%20Views.png" width="100%"/><br/><sub><b>Property Views</b></sub></td>
+    <td align="center" width="16%"><img src="seller/Add%20Listing%20-%20New%20Property.jpg" width="100%"/><br/><sub><b>Add Listing</b></sub></td>
+    <td align="center" width="16%"><img src="seller/Add%20Listing%20-%20Featured%20Ad%20-%20For%20New%20Property.png" width="100%"/><br/><sub><b>Featured Ads</b></sub></td>
+    <td align="center" width="16%"><img src="seller/Add%20Listing%20-%20Upgrade%20Plan.jpg" width="100%"/><br/><sub><b>Subscription Plans</b></sub></td>
+    <td align="center" width="16%"><img src="seller/Company%20Members.jpg" width="100%"/><br/><sub><b>Team Members</b></sub></td>
+  </tr>
+</table>
 
+## 🛠️ Tech Stack
 
+| Area | Tools |
+|---|---|
+| **Framework** | Flutter 3.x, Dart |
+| **State management** | flutter_bloc (BLoC / Cubit) |
+| **Backend services** | Firebase Auth, Cloud Messaging, Analytics |
+| **Auth providers** | Email, phone OTP, Google Sign-In, Twitter Login |
+| **Networking** | Dio (REST) |
+| **Maps & location** | Google Maps Flutter |
+| **Payments** | Paymob |
+| **Notifications** | Firebase Cloud Messaging, Flutter Local Notifications |
+| **Deep linking** | Branch.io |
+| **Local storage** | SharedPreferences |
+| **Localization** | Flutter Intl (English & Arabic, RTL) |
+
+## 🎯 Skills Demonstrated
+
+`Flutter` · `Dart` · `BLoC / Cubit` · `Clean, feature-first architecture` · `REST APIs` · `Firebase` · `Payment gateway integration` · `Push notifications` · `Deep linking` · `Maps & geolocation` · `Localization / RTL` · `Material Design 3` · `Role-based UX` · `Analytics`
 
 ## 📥 Download
-> **Note**: App download links may not be available as the clint didn't deploy check back later.
+> **Note**: App download links may not be available as the client has not deployed the app yet; check back later.
 
 [![Get it on App Store](https://img.shields.io/badge/Download_on-the_App_Store-black.svg?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/app/blokkah)
 [![Get it on Google Play](https://img.shields.io/badge/Get_it_on-Google_Play-green.svg?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.blokkahco.blokkah)
