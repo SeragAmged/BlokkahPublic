@@ -132,7 +132,7 @@ lib/
 ## 📥 Download
 > **Note**: App download links may not be available as the client has not deployed the app yet; check back later.
 
-[![Get it on App Store](https://img.shields.io/badge/Download_on-the_App_Store-black.svg?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/app/blokkah)
+[![Get it on App Store](https://img.shields.io/badge/Download_on-the_App_Store-black.svg?style=for-the-badge&logo=apple&logoColor=white)](https://apps.apple.com/sa/app/%D8%A8%D9%84%D9%88%D9%83%D9%87-%D8%B9%D9%82%D8%A7%D8%B1-%D9%88-%D8%A7%D9%83%D8%AB%D8%B1-blokkah/id6740733193)
 [![Get it on Google Play](https://img.shields.io/badge/Get_it_on-Google_Play-green.svg?style=for-the-badge&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=com.blokkahco.blokkah)
 
 
